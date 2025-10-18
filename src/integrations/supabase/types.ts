@@ -41,6 +41,41 @@ export type Database = {
         }
         Relationships: []
       }
+      course_materials: {
+        Row: {
+          course_id: string
+          description: string | null
+          file_url: string | null
+          id: string
+          title: string
+          uploaded_at: string
+        }
+        Insert: {
+          course_id: string
+          description?: string | null
+          file_url?: string | null
+          id?: string
+          title: string
+          uploaded_at?: string
+        }
+        Update: {
+          course_id?: string
+          description?: string | null
+          file_url?: string | null
+          id?: string
+          title?: string
+          uploaded_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "course_materials_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       courses: {
         Row: {
           completion_status: number | null

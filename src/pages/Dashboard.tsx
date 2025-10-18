@@ -7,6 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Heart, LogOut, MessageCircle, BookOpen, Calendar } from "lucide-react";
 import { toast } from "sonner";
 import ChatInterface from "@/components/ChatInterface";
+import { CourseDashboard } from "@/components/CourseDashboard";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -106,53 +108,72 @@ const Dashboard = () => {
       </header>
 
       <div className="container mx-auto px-4 py-8">
-        <div className="grid lg:grid-cols-3 gap-6">
-          {/* Sidebar with quick stats */}
-          <div className="lg:col-span-1 space-y-4">
-            <Card className="shadow-lg">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <BookOpen className="w-5 h-5 text-primary" />
-                  My Courses
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground">
-                  Start chatting with UniFriend to get personalized course recommendations and study support.
-                </p>
-              </CardContent>
-            </Card>
+        <Tabs defaultValue="chat" className="w-full">
+          <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-6">
+            <TabsTrigger value="chat" className="flex items-center gap-2">
+              <MessageCircle className="w-4 h-4" />
+              AI Chat
+            </TabsTrigger>
+            <TabsTrigger value="courses" className="flex items-center gap-2">
+              <BookOpen className="w-4 h-4" />
+              Courses
+            </TabsTrigger>
+          </TabsList>
 
-            <Card className="shadow-lg">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Calendar className="w-5 h-5 text-secondary" />
-                  Upcoming Events
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground">
-                  UniFriend will suggest relevant campus events based on your interests.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+          <TabsContent value="chat" className="mt-6">
+            <div className="grid lg:grid-cols-3 gap-6">
+              {/* Sidebar with quick stats */}
+              <div className="lg:col-span-1 space-y-4">
+                <Card className="shadow-lg">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <BookOpen className="w-5 h-5 text-primary" />
+                      My Courses
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground">
+                      Start chatting with UniFriend to get personalized course recommendations and study support.
+                    </p>
+                  </CardContent>
+                </Card>
 
-          {/* Main chat area */}
-          <div className="lg:col-span-2">
-            <Card className="shadow-xl h-[600px] flex flex-col">
-              <CardHeader className="border-b">
-                <CardTitle className="flex items-center gap-2">
-                  <MessageCircle className="w-5 h-5 text-primary" />
-                  Chat with UniFriend
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="flex-1 p-0">
-                <ChatInterface userId={user?.id || ""} />
-              </CardContent>
-            </Card>
-          </div>
-        </div>
+                <Card className="shadow-lg">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Calendar className="w-5 h-5 text-secondary" />
+                      Upcoming Events
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground">
+                      UniFriend will suggest relevant campus events based on your interests.
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Main chat area */}
+              <div className="lg:col-span-2">
+                <Card className="shadow-xl h-[600px] flex flex-col">
+                  <CardHeader className="border-b">
+                    <CardTitle className="flex items-center gap-2">
+                      <MessageCircle className="w-5 h-5 text-primary" />
+                      Chat with UniFriend
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="flex-1 p-0">
+                    <ChatInterface userId={user?.id || ""} />
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="courses" className="mt-6">
+            <CourseDashboard userId={user?.id || ""} />
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
