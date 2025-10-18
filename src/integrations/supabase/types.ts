@@ -71,6 +71,36 @@ export type Database = {
         }
         Relationships: []
       }
+      events: {
+        Row: {
+          category: string
+          created_at: string
+          event_date: string | null
+          event_name: string
+          id: string
+          relevance_score: number | null
+          university_id: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          event_date?: string | null
+          event_name: string
+          id?: string
+          relevance_score?: number | null
+          university_id: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          event_date?: string | null
+          event_name?: string
+          id?: string
+          relevance_score?: number | null
+          university_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string | null
